@@ -7,18 +7,17 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
-  const url = process.env.TURSO_DATABASE_URL || process.env.DATABASE_URL || "file:./dev.db";
+  const rawUrl = process.env.TURSO_DATABASE_URL || process.env.DATABASE_URL || "file:./dev.db";
   const authToken = process.env.TURSO_AUTH_TOKEN;
 
-  if (url.startsWith("libsql://")) {
-    // Turso remote database (production)
+  if (rawUrl.startsWith("libsql://")) {
+    const url = rawUrl.replace("libsql://", "https://");
     const libsql = createClient({ url, authToken });
     const adapter = new PrismaLibSQL(libsql);
     return new PrismaClient({ adapter });
   }
 
-  // Local SQLite database (development)
-  const libsql = createClient({ url });
+  const libsql = createClient({ url: rawUrl });
   const adapter = new PrismaLibSQL(libsql);
   return new PrismaClient({ adapter });
 }
