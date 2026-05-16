@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DetailClient from "./detail-client";
+import { getBaseUrl } from "@/lib/url";
 
 interface Photo {
   id: number;
@@ -18,7 +19,7 @@ interface Photo {
 
 async function getPhoto(id: string): Promise<Photo | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3008";
+    const baseUrl = getBaseUrl();
     const res = await fetch(`${baseUrl}/api/photos/${id}`, { cache: "no-store" });
     if (!res.ok) return null;
     return res.json();

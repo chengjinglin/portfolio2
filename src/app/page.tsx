@@ -1,10 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PhotoGrid from "@/components/PhotoGrid";
+import { getBaseUrl } from "@/lib/url";
 
 async function getPhotos() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3008";
+    const baseUrl = getBaseUrl();
     const res = await fetch(`${baseUrl}/api/photos?limit=20`, { cache: "no-store" });
     if (!res.ok) return { photos: [] };
     return res.json();

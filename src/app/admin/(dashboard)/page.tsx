@@ -1,6 +1,8 @@
+import { getBaseUrl } from "@/lib/url";
+
 async function getStats() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3008";
+    const baseUrl = getBaseUrl();
     const photosRes = await fetch(`${baseUrl}/api/photos?limit=1`, { cache: "no-store" });
     const photosData = await photosRes.json();
     const totalPhotos = photosData.total || 0;
