@@ -8,7 +8,9 @@ export async function POST(request: NextRequest) {
   try {
     const { username, password } = await request.json();
 
-    const user = await prisma.user.findUnique({ where: { username } });
+    const user = await prisma.user.findUnique({
+      where: { username: username.trim() },
+    });
     if (!user || !(await verifyPassword(password, user.password))) {
       return NextResponse.json({ error: "用户名或密码错误" }, { status: 401 });
     }
