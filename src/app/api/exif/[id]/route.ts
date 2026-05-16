@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import path from "path";
 import fs from "fs/promises";
 
+export const dynamic = "force-dynamic";
+
 async function getExif(input: Buffer | string) {
   try {
     const exifr = await import("exifr");

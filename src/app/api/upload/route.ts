@@ -4,6 +4,8 @@ import { getAuthUser } from "@/lib/auth";
 import { ensureUploadDirs, processImage } from "@/lib/upload";
 import path from "path";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(request: NextRequest) {
   const user = await getAuthUser();
   if (!user) {
