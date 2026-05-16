@@ -14,8 +14,10 @@ function createPrismaClient() {
   ).trim();
   const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
 
+  console.log("[prisma] rawUrl:", rawUrl, "starts with libsql:", rawUrl.startsWith("libsql://"));
   if (rawUrl.startsWith("libsql://")) {
     const url = rawUrl.replace("libsql://", "https://");
+    console.log("[prisma] connecting to Turso:", url);
     const libsql = createClient({ url, authToken });
     const adapter = new PrismaLibSQL(libsql);
     return new PrismaClient({ adapter });
