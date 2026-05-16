@@ -7,9 +7,12 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
-  const rawUrl =
-    process.env.TURSO_DATABASE_URL || process.env.DATABASE_URL || "file:./dev.db";
-  const authToken = process.env.TURSO_AUTH_TOKEN;
+  const rawUrl = (
+    process.env.TURSO_DATABASE_URL ||
+    process.env.DATABASE_URL ||
+    "file:./dev.db"
+  ).trim();
+  const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
 
   if (rawUrl.startsWith("libsql://")) {
     const url = rawUrl.replace("libsql://", "https://");
