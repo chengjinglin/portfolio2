@@ -17,8 +17,7 @@ export async function POST(request: NextRequest) {
 
     await setAuthCookie(user.id);
     return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error("Login error:", err);
+  } catch {
     return NextResponse.json({ error: "登录失败" }, { status: 500 });
   }
 }
